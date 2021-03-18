@@ -1,0 +1,35 @@
+.grid {
+    padding: 5px;
+}
+
+.grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.grid li {
+    flex: 25%;
+    max-width: 25%;
+    padding: 4px;
+    list-style-type: none;
+    align-self: center;
+}
+
+img {
+    width: 100%;
+    vertical-align: none;
+}
+
+.column ul {
+    display: block;
+    padding: 0;
+}
+
+.column li {
+    max-width: 100%;
+    padding: 10px 0;
+    position: relative;
+}
