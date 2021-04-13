@@ -1,4 +1,5 @@
-const port = 3001;
+require('dotenv').config();
+
 const cors = require('cors');
 const express = require('express');
 const bodyParser= require('body-parser'); // parses form data & incoming req bodies from req.body
@@ -15,7 +16,6 @@ app.use(cors(corsOptions));
 
 // Mongo DB configs
 const MongoClient = require('mongodb').MongoClient;
-const MongoCreds = 'mongodb+srv://user_88:meme-app-1@memedb.mjmni.mongodb.net/MemeDB?retryWrites=true&w=majority';
 
 let ObjectId = require('mongodb').ObjectID; // for use in deletion method, parses req.params
 let db;
@@ -23,7 +23,7 @@ let db;
 /**
  * Establish database connection
  */
-MongoClient.connect(MongoCreds, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+MongoClient.connect(process.env.MONGO_DEETS, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
 
     if (err) return console.log(err);
     db = client.db('memes') // whatever your database name is
