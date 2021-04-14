@@ -6,6 +6,8 @@ const bodyParser= require('body-parser'); // parses form data & incoming req bod
 const cookieParser= require('cookie-parser');
 const app = express();
 
+require('./models/db'); // application connects to db on startup
+
 var corsOptions = {
     origin: '*',
     credentials: true,
@@ -42,20 +44,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // handle x-www-form-urlenco
 app.use(cookieParser());
 
 /**
- * Default route, load all image paths
- */
-let images = [];
-app.get('/img', function(req, res) {
-    db.collection('images').find().toArray(function(err, results) {// return collection documents as an array
-        // const image = req.cookies.image;
-        if (err) return console.log(err)
-        images = results;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ mongoData: images }));
-    })
-})
-
-/**
  * Favorites route, load all favorite image paths
  */
 let faveImages = [];
@@ -70,7 +58,7 @@ app.get('/img/favorites', function(req, res) {
 })
 
 /**
- * Favorites route, load all favorite image paths
+ * Collections route, load all favorite collections
  */
 let faveImageCollections = [];
 app.get('/img/fave-collections', function(req, res) {
