@@ -1,20 +1,31 @@
 require('dotenv').config();
 
+const createError = require('http-errors');
 const cors = require('cors');
 const express = require('express');
 const bodyParser= require('body-parser'); // parses form data & incoming req bodies from req.body
 const cookieParser= require('cookie-parser');
-const app = express();
+const port = 3002;
 
 require('./models/db'); // application connects to db on startup
+
+const apiRouter = require('./routes/index'); // get router index for api endpoints
+
+const app = express();
 
 var corsOptions = {
     origin: '*',
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
-
+}
 app.use(cors(corsOptions));
+
+app.listen(process.env.PORT || port, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log(process.env.MONGO_DEETS);
+});
+
+app.use('/img', apiRouter); // Any requests to api get passed to apiRouter
 
 // Mongo DB configs
 const MongoClient = require('mongodb').MongoClient;
@@ -29,10 +40,6 @@ MongoClient.connect(process.env.MONGO_DEETS, { useNewUrlParser: true, useUnified
 
     if (err) return console.log(err);
     db = client.db('memes') // whatever your database name is
-
-    // app.listen(port, function() {
-    //     console.log(`listening on ${port}`) // verifies server is up and running, exposed on port #
-    // });
 
     app.listen(process.env.PORT || port, function(){
         console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
@@ -129,9 +136,23 @@ app.get('/img/create-faves', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../public', 'index.html'));
 });
 
-/**
- * Template rendering
- */
-// app.get('/form', function(req, res) {
-//     res.render('form');
-// })
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.json({
+        message: err.message,
+        error: err
+    });
+});
+
+module.exports = app;

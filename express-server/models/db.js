@@ -2,12 +2,17 @@ const mongoose = require('mongoose');
 const readLine = require('readline');
 
 let dbURL = 'mongodb://127.0.0.1/img';
+// let dbURL = process.env.MONGO_DEETS;
 if (process.env.NODE_ENV === 'production') {
   dbURL = process.env.DB_HOST || process.env.MONGODB_URI;
 }
 
 const connect = () => {
-  setTimeout(() => mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }), 1000);
+  setTimeout(() => mongoose.connect(dbURL, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true
+    }), 1000);
 }
 
 mongoose.connection.on('connected', () => {
