@@ -3,16 +3,17 @@ const router = express.Router();
 
 const imagesController = require('../controllers/images');
 const favoritesController = require('../controllers/favorites')
+const collectionsController = require('../controllers/collections')
 
 router
     .route('/')
     .get(imagesController.imagesList);
 
 router
-    .route('/favorites')
-    .get(favoritesController.favoriteCollectionsList)
+    .route('/favorites/:name')
+    .get(favoritesController.favoritesList)
 
- router
+router
     .route('/addToFavoritesCollection')
     .post(favoritesController.addToFavoritesCollection);
 
@@ -20,49 +21,16 @@ router
     .route('/removeFromFavoritesCollection/:name/:_id')
     .delete(favoritesController.removeFromFavoritesCollection);
 
- /**
-  * Collections route, load all favorite collections
-  */
-//  let faveImageCollections = [];
-//  app.get('/img/fave-collections', function(req, res) {
-//      db.collection('fave-collections').find().toArray(function(err, results) { // return collection documents as an array
-//          // const favoriteImage = req.cookies.favoriteImage;
-//          if (err) return console.log(err)
-//          faveImageCollections = results;
-//          res.setHeader('Content-Type', 'application/json');
-//          res.send(JSON.stringify({ mongoData: results }));
-//      })
-//  })
+router
+    .route('/favoriteCollectionsList')
+    .get(collectionsController.favoriteCollectionsList);
 
-//  /**
-//   * Add collection to collections.
-//   */
-//  app.post('/img/add-collection', (req, res) => {
-//      req.body._id = new ObjectId(req.body._id);
-//      req.body.images = [];
-//      db.collection('fave-collections').insertOne(req.body, (err, result) => {
-//          if (err) return console.log(err)
-//          res.send('Account added to fave collection');
-//      })
-//  })
+router
+    .route('/addCollection')
+    .get(collectionsController.addCollection);
 
-//  /**
-//   * Get images from a collection.
-//   */
-//  app.get('/img/get-collection/:name', function(req, res) {
-//      db.collection('fave-collections').findOne({'name' : req.params.name}, (err, result) => {
-//          if (err) return console.log(err)
-//          if (result != null) {
-//              res.setHeader('Content-Type', 'application/json');
-//              res.send({'images' : result.images });
-//          } else {
-//              res.send({data: 'Collection not found'});
-//          }
-//      })
-//  })
-
-//  app.get('/img/create-faves', function(request, response) {
-//      response.sendFile(path.resolve(__dirname, '../public', 'index.html'));
-//  });
+router
+    .route('/removeCollection/:name')
+    .get(collectionsController.removeCollection);
 
 module.exports = router;

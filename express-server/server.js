@@ -53,57 +53,57 @@ app.use(cookieParser());
 /**
  * Collections route, load all favorite collections
  */
-let faveImageCollections = [];
-app.get('/img/fave-collections', function(req, res) {
-    db.collection('fave-collections').find().toArray(function(err, results) { // return collection documents as an array
-        // const favoriteImage = req.cookies.favoriteImage;
-        if (err) return console.log(err)
-        faveImageCollections = results;
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ mongoData: results }));
-    })
-})
+// let faveImageCollections = [];
+// app.get('/img/fave-collections', function(req, res) {
+//     db.collection('fave-collections').find().toArray(function(err, results) { // return collection documents as an array
+//         // const favoriteImage = req.cookies.favoriteImage;
+//         if (err) return console.log(err)
+//         faveImageCollections = results;
+//         res.setHeader('Content-Type', 'application/json');
+//         res.send(JSON.stringify({ mongoData: results }));
+//     })
+// })
 
-/**
- * Remove favorited image from favorited-images table.
- */
-app.delete('/img/remove-from-favorites/:name/:_id', (req, res) => {
-    let id = ObjectId(req.params._id);
-    const query = {name: req.body.name};
-    const image = { $pull: {images: {_id: req.body._id} } };
+// /**
+//  * Remove favorited image from favorited-images table.
+//  */
+// app.delete('/img/remove-from-favorites/:name/:_id', (req, res) => {
+//     let id = ObjectId(req.params._id);
+//     const query = {name: req.body.name};
+//     const image = { $pull: {images: {_id: req.body._id} } };
 
-    db.collection('fave-collections').updateOne(query, image, (err, result) => {
-        if (err) throw err;
-        res.send('Document matching id deleted');
-    })
-})
+//     db.collection('fave-collections').updateOne(query, image, (err, result) => {
+//         if (err) throw err;
+//         res.send('Document matching id deleted');
+//     })
+// })
 
-/**
- * Add collection to collections.
- */
-app.post('/img/add-collection', (req, res) => {
-    req.body._id = new ObjectId(req.body._id);
-    req.body.images = [];
-    db.collection('fave-collections').insertOne(req.body, (err, result) => {
-        if (err) return console.log(err)
-        res.send('Account added to fave collection');
-    })
-})
+// /**
+//  * Add collection to collections.
+//  */
+// app.post('/img/add-collection', (req, res) => {
+//     req.body._id = new ObjectId(req.body._id);
+//     req.body.images = [];
+//     db.collection('fave-collections').insertOne(req.body, (err, result) => {
+//         if (err) return console.log(err)
+//         res.send('Account added to fave collection');
+//     })
+// })
 
-/**
- * Get images from a collection.
- */
-app.get('/img/get-collection/:name', function(req, res) {
-    db.collection('fave-collections').findOne({'name' : req.params.name}, (err, result) => {
-        if (err) return console.log(err)
-        if (result != null) {
-            res.setHeader('Content-Type', 'application/json');
-            res.send({'images' : result.images });
-        } else {
-            res.send({data: 'Collection not found'});
-        }
-    })
-})
+// /**
+//  * Get images from a collection.
+//  */
+// app.get('/img/get-collection/:name', function(req, res) {
+//     db.collection('fave-collections').findOne({'name' : req.params.name}, (err, result) => {
+//         if (err) return console.log(err)
+//         if (result != null) {
+//             res.setHeader('Content-Type', 'application/json');
+//             res.send({'images' : result.images });
+//         } else {
+//             res.send({data: 'Collection not found'});
+//         }
+//     })
+// })
 
 app.get('/img/create-faves', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../public', 'index.html'));
