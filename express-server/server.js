@@ -51,20 +51,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // handle x-www-form-urlenco
 app.use(cookieParser());
 
 /**
- * Favorites route, load all favorite image paths
- */
-let faveImages = [];
-app.get('/img/favorites', function(req, res) {
-    db.collection('favorite-images').find().toArray(function(err, results) { // return collection documents as an array
-        // const favoriteImage = req.cookies.favoriteImage;
-        if (err) return console.log(err)
-        faveImages = results;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ mongoData: faveImages }));
-    })
-})
-
-/**
  * Collections route, load all favorite collections
  */
 let faveImageCollections = [];
@@ -75,19 +61,6 @@ app.get('/img/fave-collections', function(req, res) {
         faveImageCollections = results;
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ mongoData: results }));
-    })
-})
-
-/**
- * Add favorite image path to fave-collections.
- */
-app.post('/img/add-to-favorites', (req, res) => {
-    const query = {name: req.body.name};
-    const newImage = { $push: {images: {_id: req.body._id, url: req.body.url, alt: ''} } };
-    db.collection('fave-collections').updateOne(query, newImage, (err, result) => {
-        if (err) return console.log(err)
-        // res.send('Image added to favorites collection');
-        res.end('Image added to favorites collection');
     })
 })
 

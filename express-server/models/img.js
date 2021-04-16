@@ -19,6 +19,7 @@ mongoose.model('favorites', favoriteSchema);
 // Define image collection schema
 const collectionSchema = new mongoose.Schema({
     name: { type: String, required: true, index: true},
-    account: { type: String, required: true }
+    account: { type: String, required: true },
+    faveImages: [imageSchema]
 })
-mongoose.model('collections', collectionSchema);
+mongoose.model('faveImageCollections', collectionSchema);
