@@ -25,6 +25,10 @@ app.listen(process.env.PORT || port, function(){
     console.log(process.env.MONGO_DEETS);
 });
 
+app.use(bodyParser.json()); // handle JSON request bodies
+app.use(bodyParser.urlencoded({ extended: true })); // handle x-www-form-urlencoded request bodies
+app.use(cookieParser());
+
 app.use('/img', apiRouter); // Any requests to api get passed to apiRouter
 
 // Mongo DB configs
@@ -45,10 +49,6 @@ MongoClient.connect(process.env.MONGO_DEETS, { useNewUrlParser: true, useUnified
         console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
     });
 })
-
-app.use(bodyParser.json()); // handle JSON request bodies
-app.use(bodyParser.urlencoded({ extended: true })); // handle x-www-form-urlencoded request bodies
-app.use(cookieParser());
 
 /**
  * Collections route, load all favorite collections

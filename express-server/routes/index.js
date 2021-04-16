@@ -11,14 +11,14 @@ router
 
 router
     .route('/favorites/:name')
-    .get(favoritesController.favoritesList)
+    .get(favoritesController.favoriteMemes)
 
 router
     .route('/addToFavoritesCollection')
     .post(favoritesController.addToFavoritesCollection);
 
 router
-    .route('/removeFromFavoritesCollection/:name/:_id')
+    .route('/removeFromFavoritesCollection/')
     .delete(favoritesController.removeFromFavoritesCollection);
 
 router
@@ -27,7 +27,7 @@ router
 
 router
     .route('/addCollection')
-    .get(collectionsController.addCollection);
+    .post(collectionsController.addCollection);
 
 router
     .route('/removeCollection/:name')

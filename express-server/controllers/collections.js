@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Image = mongoose.model('images');
+// const Image = mongoose.model('images');
 const Collection = mongoose.model('faveImageCollections');
 
 
-// GET: /favoritesCollectionsList - load all favorite collections
+// GET: /favoritesCollectionsList - load all favorite memes collections
 const favoriteCollectionsList = async (req, res) => {
     Collection
         .find({}) // empty filter object to return all the collections
@@ -26,9 +26,15 @@ const favoriteCollectionsList = async (req, res) => {
 
 // POST: /addCollection - adds a new collection to list
 const addCollection = async (req, res) => {
+    const collection = new Collection({
+        name: req.body.name,
+        account: req.body.account,
+        faveImages: []
+    })
     Collection
-        .create(req.body)
+        .create(collection)
         .then(collection => {
+            debugger;
             if (!collection) {
                 return res
                     .status(404)

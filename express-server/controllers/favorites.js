@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Image = mongoose.model('images');
 const Collection = mongoose.model('faveImageCollections');  // Finds 'trips' inside models/travlr
 
-// GET: /favoritesList - get all images in favorite list
-const favoritesList = async (req, res) => {
+// GET: /favoritesMemes - get all memes in favorite list
+const favoriteMemes = async (req, res) => {
     Collection
         .find({'name': req.params.name }) // empty filter object to return all the collections
         .exec((err, collection) => { // callback with error object and collection(s)
@@ -32,7 +32,7 @@ const addToFavoritesCollection = async (req, res) => {
     })
     Collection
         .findOneAndUpdate(
-            { 'name': req.body.name },
+            { name: req.body.name },
             { faveImages: image },
             { new: true }
         )
@@ -91,7 +91,7 @@ const removeFromFavoritesCollection = async (req, res) => {
 
 // Needs to be exported as module before another file can import it
 module.exports = {
-    favoritesList,
+    favoriteMemes,
     addToFavoritesCollection,
     removeFromFavoritesCollection
 }

@@ -19,7 +19,7 @@ mongoose.model('images', imageSchema);
 // Define image collection schema
 const collectionSchema = new mongoose.Schema({
     name: { type: String, required: true, index: true},
-    account: { type: String, required: true },
+    account: { type: Number, required: true },
     faveImages: [imageSchema]
 })
 mongoose.model('faveImageCollections', collectionSchema);
