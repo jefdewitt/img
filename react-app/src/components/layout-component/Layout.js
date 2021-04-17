@@ -36,7 +36,6 @@ class Layout extends Component {
         let images = (!this.props.isFaveCollection) ? this.props.allImageData : this.props.faveImageData;
         const collectionName = this.props.collectionName;
         const updateFaves = this.props.updateFaves;
-        console.log(!this.props.isFaveCollection && !this.props.faveImageData)
 
         if (!this.props.isLoaded) {
             return <div>Loading... {this.props.isLoaded}</div>

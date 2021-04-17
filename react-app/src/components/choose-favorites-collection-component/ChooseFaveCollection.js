@@ -50,7 +50,7 @@ class ChooseFave extends Component {
                 )
         } else {
             return (
-                <input type="submit" value="Choose One" onClick={() => {this.props.displayJoinNow(false)}}></input>
+                <input type="submit" value="Choose One" onClick={() => {this.props.displayCreateCollectionComp(false)}}></input>
             )
         }
     }

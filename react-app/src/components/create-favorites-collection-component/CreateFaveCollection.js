@@ -24,7 +24,7 @@ class CreateFave extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         UserService.addCollection(this.state.nameValue)
-            .then(result => {this.setState({submissionSuccess: result})});
+            .then(result => { this.setState({ submissionSuccess: result }) });
     }
 
     // If new account creation is successful, go back home
@@ -61,7 +61,7 @@ class CreateFave extends Component {
             )
         } else {
             return (
-                <input type="submit" value="Create New" onClick={() => {this.props.displayJoinNow(true)}}></input>
+                <input type="submit" value="Create New" onClick={() => {this.props.displayCreateCollectionComp(true)}}></input>
             )
         }
 

@@ -32,24 +32,28 @@ class Main extends Component {
 
     getFaves = (collection) => {
         UserService.getCollection(collection)
-            .then(result => {this.setState({faveImageData: result.images})});
+            .then(result => { this.setState({
+                faveImageData: result[0].faveImages
+            })});
     }
 
     updateFaveCollectionsList = () => {
-        console.log('test')
         ImageService.getFaveCollections()
             .then(result => this.setState({
                 isLoaded: true,
-                faveImageCollections: result.mongoData
-            }))
+                faveImageCollections: result
+            }));
     }
 
     // Gets called after first render
     componentDidMount() {
-
         // Get all images
         ImageService.getAllImages()
-            .then(result => {this.setState({ allImageData: result.mongoData})});
+            .then(result => {
+                this.setState({
+                    allImageData: result
+                })
+            });
 
          // Get fave image collections
         this.updateFaveCollectionsList();

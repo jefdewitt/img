@@ -62,9 +62,9 @@ const addToFavoritesCollection = async (req, res) => {
 // DELETE: /removeFromFavoritesCollection - removes an image from favorites collection
 const removeFromFavoritesCollection = async (req, res) => {
     Collection
-        .findOneAndDelete(
+        .updateOne(
             { 'name': req.body.name },
-            { images: {_id: req.body._id} }
+            { $pull: { faveImages: {_id: req.body._id} } }
         )
         .then(image => {
             if (!image) {

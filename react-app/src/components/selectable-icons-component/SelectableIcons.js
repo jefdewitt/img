@@ -50,8 +50,8 @@ class SelectableImage extends Component {
             return (
                 <React.Fragment>
                     <SingleImage source={this.props.source}/>
-                    <i className={(this.state.favorited === true) ? 'fas fa-heart' : 'far fa-heart'}
-                    onClick={this.toggleClass}></i>
+                    <i className={ (this.state.favorited === true) ? 'fas fa-heart' : 'far fa-heart' }
+                    onClick={ this.toggleClass }></i>
                 </React.Fragment>
             )
         } else {

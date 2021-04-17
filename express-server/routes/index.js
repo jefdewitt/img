@@ -18,7 +18,7 @@ router
     .post(favoritesController.addToFavoritesCollection);
 
 router
-    .route('/removeFromFavoritesCollection/')
+    .route('/removeFromFavoritesCollection/:collectionName/:imageId')
     .delete(favoritesController.removeFromFavoritesCollection);
 
 router

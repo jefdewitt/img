@@ -1,23 +1,24 @@
+const apiBaseUrl = 'http://localhost:3002/img'; // dev
+// const apiBaseUrl = 'https://meme-server.herokuapp.com/img'; // prod
 
 const ImageService = {
 
     // Get all images
     getAllImages: async function() {
-        const response = await fetch("https://meme-server.herokuapp.com/img");
+        const response = await fetch(apiBaseUrl, {mode: 'cors'});
         const json = await response.json();
         return json;
     },
 
      // Get fave image collections
     getFaveCollections: async function() {
-        const response = await fetch("https://meme-server.herokuapp.com/img/fave-collections");
+        const response = await fetch(apiBaseUrl+'/favoriteCollectionsList', {mode: 'cors'});
         const json = await response.json();
         return json;
     },
 
-    addToFaveImages: function(collectionName, imageId, imageUrl) {
-        fetch('https://meme-server.herokuapp.com/img/add-to-favorites', {
-        // fetch('http://localhost:3001/add-to-favorites', {
+    addToFaveImages: async function(collectionName, imageId, imageUrl) {
+        const requestOptions = {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -29,12 +30,14 @@ const ImageService = {
                 url: imageUrl,
                 alt: ''
             })
-        })
+        }
+        const response = await fetch(apiBaseUrl + '/addToFavoritesCollection', requestOptions)
+        const json = await response.json();
+        return json;
     },
 
-    removeFromFaveImages: function(collectionName, imageId) {
-        fetch('https://meme-server.herokuapp.com/img/remove-from-favorites/' + collectionName + '/' + imageId, {
-        // fetch('http://localhost:3001/remove-from-favorites/' + collectionName + '/' + imageId, {
+    removeFromFaveImages: async function(collectionName, imageId) {
+        const requestOptions = {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -44,10 +47,10 @@ const ImageService = {
                 name: collectionName,
                 _id: imageId
             })
-        }).then(result => {
-            console.log("result", result)
-        })
-        .catch(e => console.error(e));
+        }
+        const response = await fetch(apiBaseUrl + '/removeFromFavoritesCollection/' + collectionName + '/' + imageId, requestOptions)
+        const json = await response.json();
+        return json;
     }
 }
 

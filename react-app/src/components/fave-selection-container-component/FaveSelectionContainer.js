@@ -9,7 +9,7 @@ class FaveSelectionContainer extends Component {
     constructor(props) {
         super();
         this.state = {
-            showJoinNow: false
+            showCreateCollectionComp: false
         }
     }
 
@@ -17,8 +17,8 @@ class FaveSelectionContainer extends Component {
      * Gets event passed back up from child components.
      * This call comes from navigation.
      */
-    displayJoinNow = (passedValue) => {
-        this.setState({showJoinNow : passedValue});
+    displayCreateCollectionComp = (passedValue) => {
+        this.setState({showCreateCollectionComp : passedValue});
     }
 
     /*
@@ -26,7 +26,7 @@ class FaveSelectionContainer extends Component {
      * This call comes from the component itself.
      */
     componentDidMount = () => {
-        this.setState({showJoinNow : this.props.createNewClick});
+        this.setState({showCreateCollectionComp : this.props.createNewClick});
     }
 
     render() {
@@ -37,14 +37,14 @@ class FaveSelectionContainer extends Component {
             updateFaveCollectionsList
         } = this.props;
 
-        if (this.state.showJoinNow) {
+        if (this.state.showCreateCollectionComp) {
             return (
                 <React.Fragment>
                     <div className="fave-selection-container">
                         <ChooseFave
                             signInClick={false}
                             faveImageCollections={faveImageCollections}
-                            displayJoinNow={this.displayJoinNow}>
+                            displayCreateCollectionComp={this.displayCreateCollectionComp}>
                         </ChooseFave>
                         <CreateFave
                             createNewClick={true}
@@ -60,7 +60,7 @@ class FaveSelectionContainer extends Component {
                     <div className="fave-selection-container">
                         <CreateFave
                             createNewClick={false}
-                            displayJoinNow={this.displayJoinNow}>
+                            displayCreateCollectionComp={this.displayCreateCollectionComp}>
                         </CreateFave>
                         <ChooseFave
                             signInClick={true}
