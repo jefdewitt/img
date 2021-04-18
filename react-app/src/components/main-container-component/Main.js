@@ -33,7 +33,7 @@ class Main extends Component {
     getFaves = (collection) => {
         UserService.getCollection(collection)
             .then(result => { this.setState({
-                faveImageData: result[0].faveImages
+                faveImageData: result[0].images
             })});
     }
 

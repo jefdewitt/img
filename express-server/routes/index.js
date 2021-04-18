@@ -14,16 +14,16 @@ router
     .get(favoritesController.favoriteMemes)
 
 router
+    .route('/favoriteCollectionsList')
+    .get(collectionsController.favoriteCollectionsList);
+
+router
     .route('/addToFavoritesCollection')
     .post(favoritesController.addToFavoritesCollection);
 
 router
     .route('/removeFromFavoritesCollection/:collectionName/:imageId')
     .delete(favoritesController.removeFromFavoritesCollection);
-
-router
-    .route('/favoriteCollectionsList')
-    .get(collectionsController.favoriteCollectionsList);
 
 router
     .route('/addCollection')

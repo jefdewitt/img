@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const Image = mongoose.model('images');
 const Collection = mongoose.model('faveImageCollections');
 
 
@@ -29,7 +28,7 @@ const addCollection = async (req, res) => {
     const collection = new Collection({
         name: req.body.name,
         account: req.body.account,
-        faveImages: []
+        images: []
     })
     Collection
         .create(collection)

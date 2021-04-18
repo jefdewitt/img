@@ -24,7 +24,7 @@ class CreateFave extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         UserService.addCollection(this.state.nameValue)
-            .then(result => { this.setState({ submissionSuccess: result }) });
+            .then(result => { this.setState({ submissionSuccess: Boolean(result) }) });
     }
 
     // If new account creation is successful, go back home
@@ -35,7 +35,7 @@ class CreateFave extends Component {
     // Called after state change (see the handleSubmit setState call above)
     componentDidUpdate() {
         try {
-            if (this.state.submissionSuccess.ok) {
+            if (this.state.submissionSuccess) {
                 this.props.loadFaveCollection(this.state.nameValue);
                 this.props.updateFaveCollectionsList();
                 this.goToFaves();

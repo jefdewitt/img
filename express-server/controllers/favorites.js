@@ -10,7 +10,7 @@ const favoriteMemes = async (req, res) => {
             if (!collection) { // if no collection
                 return res
                     .status(404) // set HTTP status code
-                    .json({ "message": "Collections not found" }); // return JSON formatted error block
+                    .json({ "message": "Collection not found" }); // return JSON formatted error block
             } else if (err) { // if error
                 return res
                     .status(404)
@@ -33,7 +33,7 @@ const addToFavoritesCollection = async (req, res) => {
     Collection
         .findOneAndUpdate(
             { name: req.body.name },
-            { faveImages: image },
+            { images: image },
             { new: true }
         )
         .then(image => {
@@ -64,7 +64,7 @@ const removeFromFavoritesCollection = async (req, res) => {
     Collection
         .updateOne(
             { 'name': req.body.name },
-            { $pull: { faveImages: {_id: req.body._id} } }
+            { $pull: { images: {_id: req.body._id} } }
         )
         .then(image => {
             if (!image) {
