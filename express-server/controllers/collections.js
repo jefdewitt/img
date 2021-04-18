@@ -59,7 +59,7 @@ const addCollection = async (req, res) => {
 // DELETE: /removeCollection - removes a collection
 const removeCollection = async (req, res) => {
     Collection
-        .findOneAndDelete({ 'name': req.body.name })
+        .deleteOne({ 'name': req.body.name })
         .then(collection => {
             if (!collection) {
                 return res

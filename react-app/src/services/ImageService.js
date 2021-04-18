@@ -1,5 +1,5 @@
-// const apiBaseUrl = 'http://localhost:3001/img'; // dev
-const apiBaseUrl = 'https://meme-server.herokuapp.com/img'; // prod
+const apiBaseUrl = 'http://localhost:3001/img'; // dev
+// const apiBaseUrl = 'https://meme-server2.herokuapp.com/img'; // prod
 
 const ImageService = {
 
