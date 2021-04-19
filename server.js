@@ -37,7 +37,7 @@ app.use('/img', apiRouter); // Any requests to api get passed to apiRouter
 // Tell Express to serve our React app
 app.use(express.static(path.join(__dirname, 'build')));
 app.get('/img', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+    response.sendFile(path.resolve(__dirname, '../react-app/build', 'index.html'));
 });
 
 // catch 404 and forward to error handler
