@@ -3,7 +3,7 @@ const readLine = require('readline');
 
 let dbURL;
 // dbURL = process.env.DB_HOST;
-dbURL = process.env.MONGODB_URI;
+dbURL = 'mongodb+srv://user_88:meme-app-1@memedb.mjmni.mongodb.net/MemeDB?retryWrites=true&w=majority';
 
 const connect = () => {
   setTimeout(() => mongoose.connect(dbURL, {
