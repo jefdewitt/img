@@ -13,4 +13,4 @@ The Node app leverages the Express framework to build out the backend server log
 
 Rounding out the system, images are stored in an S3 bucket in the AWS suite of cloud services.
 
-![IMG Component Diagram](./IMG Component diagram.jpeg?raw=true "IMG Component Diagram")
+![IMG Component Diagram](./IMG-Component-Diagram.jpeg?raw=true "IMG Component Diagram")

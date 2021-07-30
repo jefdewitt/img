@@ -31,7 +31,7 @@ const addToFavoritesCollection = async (req, res) => {
         alt: ''
     })
     Collection
-        .updateOne(
+        .insertOne(
             { name: req.body.name },
             { images: image },
             { new: true }

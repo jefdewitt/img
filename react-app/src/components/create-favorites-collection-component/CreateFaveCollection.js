@@ -1,70 +1,60 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { withRouter } from "react-router-dom";
 
 import UserService from '../../services/UserService';
 
-class CreateFave extends Component {
+const CreateFave = (props) => {
 
-    constructor(props) {
-        super();
-        this.state = {
-            nameValue: '',
-            submissionSuccess: ''
-        };
-    }
+    const [nameValue, setNameValue] = useState('');
+    const [submissionSuccess, setSubmissionSuccess] = useState('');
 
-    handleChange = (event) => {
+    const handleChange = (event) => {
         if (event.target.name === 'name') {
-            this.setState({
-                nameValue: event.target.value
-            })
+            setNameValue(event.target.value);
         }
     }
 
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        UserService.addCollection(this.state.nameValue)
-            .then(result => { this.setState({ submissionSuccess: Boolean(result) }) });
+        UserService.addCollection(nameValue)
+            .then(result => { setSubmissionSuccess(Boolean(result) ) }) ;
     }
 
     // If new account creation is successful, go back home
-    goToFaves() {
-        this.props.history.push("/img")
-    }
+    const goToFaves = useCallback(() => {
+        props.history.push("/img")
+    }, [props]);
 
     // Called after state change (see the handleSubmit setState call above)
-    componentDidUpdate() {
+    useEffect(() => {
         try {
-            if (this.state.submissionSuccess) {
-                this.props.loadFaveCollection(this.state.nameValue);
-                this.props.updateFaveCollectionsList();
-                this.goToFaves();
+            if (submissionSuccess) {
+                props.loadFaveCollection(nameValue);
+                props.updateFaveCollectionsList();
+                goToFaves();
             }
         } catch(e) {
             console.log(e);
         }
-    }
+    }, [submissionSuccess, nameValue, props, goToFaves]);
+    // }, []);
 
-    render() {
-
-        if ( this.props.createNewClick ) {
-            return (
-                <div className="create-fave form">
-                    <h3>Create a new favorites folder</h3>
-                    <form onSubmit={this.handleSubmit}>
-                        <label htmlFor="name">Add a name:
-                            <input type="text" name="name" onChange={this.handleChange}/>
-                        </label>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </div>
-            )
-        } else {
-            return (
-                <input type="submit" value="Create New" onClick={() => {this.props.displayCreateCollectionComp(true)}}></input>
-            )
-        }
-
+    if ( props.createNewClick ) {
+        return (
+            <div className="create-fave form">
+                <h3>Create a new favorites folder</h3>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="name">Add a name:
+                        <input type="text" name="name" onChange={handleChange}/>
+                    </label>
+                    <input type="submit" value="Submit"/>
+                </form>
+            </div>
+        )
+    } else {
+        return (
+            <input type="submit" value="Create New" onClick={() => {props.displayCreateCollectionComp(true)}}></input>
+        )
     }
 }
 
