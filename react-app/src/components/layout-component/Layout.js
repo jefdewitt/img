@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Layout.css";
 import SelectableIcons from "../selectable-icons-component/SelectableIcons";
 
-const Layout = React.forwardRef((props, ref) => {
+const Layout = (props) => {
   let images = !props.isFaveCollection
     ? props.allImageData
     : props.faveImageData;
@@ -37,7 +37,7 @@ const Layout = React.forwardRef((props, ref) => {
       <div className={showColumn ? "column" : "grid"}>
         <ul>
           {images.map((image, index) => {
-            const selectedImageRef = useRef();
+            const selectedImageRef = React.createRef();
             return (
               <li
                 id={index}
@@ -62,7 +62,6 @@ const Layout = React.forwardRef((props, ref) => {
       </div>
     </React.Fragment>
   );
-});
-// }
+};
 
 export default Layout;
