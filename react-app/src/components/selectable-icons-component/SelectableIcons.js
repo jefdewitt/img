@@ -5,12 +5,12 @@ import "./SelectableIcons.css";
 import ImageService from "../../services/ImageService";
 
 const SelectableImage = (props) => {
-  const [favorited, setFavorited] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
 
   const toggleClass = (event) => {
-    const currentState = this.state.favorited;
-    setFavorited(!currentState);
-    if (favorited !== true) {
+    const currentState = isFavorited;
+    setIsFavorited(!currentState);
+    if (isFavorited !== true) {
       ImageService.addToFaveImages(
         props.collectionName,
         props.source._id,
@@ -39,7 +39,7 @@ const SelectableImage = (props) => {
             return image._id;
           })
           .indexOf(props.source._id) !== -1;
-      setFavorited(faveImageCheck);
+      setIsFavorited(faveImageCheck);
     }
   }, [props.faveImageData, props.source._id]);
 
@@ -49,7 +49,7 @@ const SelectableImage = (props) => {
         <React.Fragment>
           <SingleImage source={props.source} />
           <i
-            className={favorited === true ? "fas fa-heart" : "far fa-heart"}
+            className={isFavorited === true ? "fas fa-heart" : "far fa-heart"}
             onClick={toggleClass}
           ></i>
         </React.Fragment>

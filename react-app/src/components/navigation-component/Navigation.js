@@ -19,6 +19,8 @@ const Navigation = (props) => {
   const chooseCollection = "Choose a Collection";
   const faveMemes = "Fave Memes";
 
+  let isFaveCollection = true;
+
   const displayMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -78,7 +80,7 @@ const Navigation = (props) => {
               allImageData={props.allImageData}
               faveImageData={props.faveImageData}
               isLoaded={props.isLoaded}
-              isFaveCollection={!props.isFaveCollection}
+              isFaveCollection={!isFaveCollection}
               collectionName={props.collectionName}
               updateFaves={props.updateFaves}
             />
@@ -115,7 +117,7 @@ const Navigation = (props) => {
             <Layout
               faveImageData={props.faveImageData}
               isLoaded={props.isLoaded}
-              isFaveCollection={props.isFaveCollection}
+              isFaveCollection={isFaveCollection}
               collectionName={props.collectionName}
               updateFaves={props.updateFaves}
             />
@@ -126,6 +128,5 @@ const Navigation = (props) => {
     </Router>
   );
 };
-// };
 
 export default Navigation;

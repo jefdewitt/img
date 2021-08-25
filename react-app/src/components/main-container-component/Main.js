@@ -1,92 +1,65 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import Navigation from "../navigation-component/Navigation";
 import UserService from "../../services/UserService";
 import ImageService from "../../services/ImageService";
 
-class Main extends Component {
-  constructor() {
-    super();
-    this.state = {
-      allImageData: [],
-      faveImageData: [],
-      faveImageCollections: [],
-      isLoaded: false,
-      isFaveCollection: true,
-      createNewClick: true,
-      hasFaves: false,
-      collectionName: "",
-    };
-  }
+const Main = () => {
+  const [collectionName, setCollectionName] = useState("");
+  const [faveImageData, setFaveImageData] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [faveImageCollections, setFaveImageCollections] = useState([]);
+  const [allImageData, setAllImageData] = useState([]);
+  const createNewClick = true;
 
-  updateFaves = () => {
-    this.getFaves(this.state.collectionName);
+  const updateFaves = () => {
+    getFaves(collectionName);
   };
 
-  loadFaveCollection = (collection) => {
-    this.setState({ collectionName: collection }, () => {
-      this.getFaves(this.state.collectionName);
-    });
+  const loadFaveCollection = (collection) => {
+    setCollectionName(collection);
+    getFaves(collection);
   };
 
-  getFaves = (collection) => {
+  const getFaves = (collection) => {
     UserService.getCollection(collection).then((result) => {
-      this.setState({
-        faveImageData: result[0] ? result[0].images : null,
-      });
+      setFaveImageData(result[0] ? result[0].images : null);
     });
   };
 
-  updateFaveCollectionsList = () => {
-    ImageService.getFaveCollections().then((result) =>
-      this.setState({
-        isLoaded: true,
-        faveImageCollections: result,
-      })
+  const updateFaveCollectionsList = () => {
+    ImageService.getFaveCollections().then(
+      (result) => setFaveImageCollections(result),
+      setIsLoaded(true)
     );
   };
 
-  // Gets called after first render
-  componentDidMount() {
+  useEffect(() => {
     // Get all images
     ImageService.getAllImages().then((result) => {
-      this.setState({
-        allImageData: result,
-      });
+      setAllImageData(result);
     });
 
     // Get fave image collections
-    this.updateFaveCollectionsList();
-  }
+    updateFaveCollectionsList();
+  }, []);
 
-  render() {
-    const {
-      allImageData,
-      faveImageData,
-      faveImageCollections,
-      isLoaded,
-      isFaveCollection,
-      createNewClick,
-      collectionName,
-    } = this.state;
-
-    return (
-      <div className="main">
-        <Navigation
-          allImageData={allImageData}
-          faveImageData={faveImageData}
-          faveImageCollections={faveImageCollections}
-          isLoaded={isLoaded}
-          isFaveCollection={isFaveCollection}
-          createNewClick={createNewClick}
-          collectionName={collectionName}
-          loadFaveCollection={this.loadFaveCollection}
-          updateFaves={this.updateFaves}
-          updateFaveCollectionsList={this.updateFaveCollectionsList}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="main">
+      <Navigation
+        allImageData={allImageData}
+        faveImageData={faveImageData}
+        faveImageCollections={faveImageCollections}
+        isLoaded={isLoaded}
+        // isFaveCollection={isFaveCollection}
+        createNewClick={createNewClick}
+        collectionName={collectionName}
+        loadFaveCollection={loadFaveCollection}
+        updateFaves={updateFaves}
+        updateFaveCollectionsList={updateFaveCollectionsList}
+      />
+    </div>
+  );
+};
 
 export default Main;
