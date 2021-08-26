@@ -14,7 +14,8 @@ const SelectableImage = (props) => {
       ImageService.addToFaveImages(
         props.collectionName,
         props.source._id,
-        props.source.url
+        props.source.url,
+        props.source.account
       );
       if (props.showColumn) {
         event.stopPropagation();
@@ -32,9 +33,9 @@ const SelectableImage = (props) => {
   };
 
   useEffect(() => {
-    if (props.faveImageData) {
+    if (props.faveImageData.images) {
       const faveImageCheck =
-        props.faveImageData
+        props.faveImageData.images
           .map(function (image) {
             return image._id;
           })
@@ -43,9 +44,8 @@ const SelectableImage = (props) => {
     }
   }, [props.faveImageData, props.source._id]);
 
-  return (
-    <React.Fragment>
-      {props.collectionName && props.showColumn && (
+  if (props.collectionName && props.showColumn) {
+    return (
         <React.Fragment>
           <SingleImage source={props.source} />
           <i
@@ -53,10 +53,10 @@ const SelectableImage = (props) => {
             onClick={toggleClass}
           ></i>
         </React.Fragment>
-      )}
-      <SingleImage source={props.source} />
-    </React.Fragment>
-  );
+    )
+  } else {
+    return ( <SingleImage source={props.source} /> )
+  }
 };
 
 export default SelectableImage;

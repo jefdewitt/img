@@ -6,7 +6,7 @@ import ImageService from "../../services/ImageService";
 
 const Main = () => {
   const [collectionName, setCollectionName] = useState("");
-  const [faveImageData, setFaveImageData] = useState([]);
+  const [faveImageData, setFaveImageData] = useState({images: [], account: null});
   const [isLoaded, setIsLoaded] = useState(false);
   const [faveImageCollections, setFaveImageCollections] = useState([]);
   const [allImageData, setAllImageData] = useState([]);
@@ -23,7 +23,12 @@ const Main = () => {
 
   const getFaves = (collection) => {
     UserService.getCollection(collection).then((result) => {
-      setFaveImageData(result[0] ? result[0].images : null);
+      if (result[0]) {
+        setFaveImageData({
+          images: result[0].images,
+          account: result[0].account
+        });
+      }
     });
   };
 

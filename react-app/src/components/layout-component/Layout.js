@@ -5,7 +5,7 @@ import SelectableIcons from "../selectable-icons-component/SelectableIcons";
 
 const Layout = (props) => {
   let images = props.isFaveCollection
-    ? props.faveImageData
+    ? props.faveImageData.images
     : props.allImageData;
 
   const [imageRef, setImageRef] = useState();
@@ -13,10 +13,10 @@ const Layout = (props) => {
 
   const displayColumn = () => {
     setShowColumn(showColumn = !showColumn);
-    console.log("showcolumn value " + showColumn);
 
     if (props.collectionName && showColumn === false) {
-      // if transitioning from column, make call to get updated faves list and display in grid
+      // if transitioning from column (on faves page), 
+      // make call to get updated faves list to display in grid
       props.updateFaves();
     }
   };
@@ -51,7 +51,7 @@ const Layout = (props) => {
                 }}
               >
                 <SelectableIcons
-                  source={image}
+                  source={{...image, account: props.faveImageData.account}}
                   faveImageData={props.faveImageData}
                   collectionName={props.collectionName}
                   updateFaves={props.updateFaves}
