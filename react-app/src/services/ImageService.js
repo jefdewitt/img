@@ -1,5 +1,5 @@
-// const apiBaseUrl = 'http://localhost:3001/img'; // dev
-const apiBaseUrl = 'https://meme-server2.herokuapp.com/img'; // prod
+const apiBaseUrl = 'http://localhost:3001/img'; // dev
+// const apiBaseUrl = 'https://meme-server2.herokuapp.com/img'; // prod
 
 const ImageService = {
 
@@ -10,14 +10,14 @@ const ImageService = {
         return json;
     },
 
-     // Get fave image collections
+    // Get fave image collections
     getFaveCollections: async function() {
         const response = await fetch(apiBaseUrl+'/favoriteCollectionsList', {mode: 'cors'});
         const json = await response.json();
         return json;
     },
 
-    addToFaveImages: async function(collectionName, imageId, imageUrl) {
+    addToFaveImages: async function(collectionName, imageId, imageUrl, accountNum) {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -28,6 +28,7 @@ const ImageService = {
                 name: collectionName,
                 _id: imageId,
                 url: imageUrl,
+                account: accountNum,
                 alt: ''
             })
         }

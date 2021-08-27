@@ -1,67 +1,62 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
 
-import SingleImage from '../single-image-component/SingleImage';
-import './SelectableIcons.css';
-import ImageService from '../../services/ImageService';
+import SingleImage from "../single-image-component/SingleImage";
+import "./SelectableIcons.css";
+import ImageService from "../../services/ImageService";
 
-class SelectableImage extends Component {
+const SelectableImage = (props) => {
+  const [isFavorited, setIsFavorited] = useState(false);
 
-    constructor() {
-        super();
-        this.state = {
-            favorited: false
-        };
+  const toggleClass = (event) => {
+    const currentState = isFavorited;
+    setIsFavorited(!currentState);
+    if (isFavorited !== true) {
+      ImageService.addToFaveImages(
+        props.collectionName,
+        props.source._id,
+        props.source.url,
+        props.source.account
+      );
+      if (props.showColumn) {
+        event.stopPropagation();
+      } else {
+        props.updateFaves();
+      }
+    } else {
+      ImageService.removeFromFaveImages(props.collectionName, props.source._id);
+      if (props.showColumn) {
+        event.stopPropagation();
+      } else {
+        props.updateFaves();
+      }
     }
+  };
 
-    toggleClass = (event) => {
-        const currentState = this.state.favorited;
-        this.setState({ favorited: !currentState });
-        if (this.state.favorited !== true) {
-            ImageService.addToFaveImages(this.props.collectionName, this.props.source._id, this.props.source.url);
-            if (this.props.showColumn) {
-                event.stopPropagation();
-            } else {
-                this.props.updateFaves();
-            }
-        } else {
-            ImageService.removeFromFaveImages(this.props.collectionName, this.props.source._id);
-            if (this.props.showColumn) {
-                event.stopPropagation();
-            } else {
-                this.props.updateFaves();
-            }
-        }
-    };
-
-    componentDidMount() {
-        if (this.props.faveImageData) {
-            const faveImageCheck = (this.props.faveImageData.map(function(image) {
-                return image._id;
-            }).indexOf(this.props.source._id) !== -1);
-            this.setState({
-                favorited: faveImageCheck
-            })
-        }
+  useEffect(() => {
+    if (props.faveImageData.images) {
+      const faveImageCheck =
+        props.faveImageData.images
+          .map(function (image) {
+            return image._id;
+          })
+          .indexOf(props.source._id) !== -1;
+      setIsFavorited(faveImageCheck);
     }
+  }, [props.faveImageData, props.source._id]);
 
-    render() {
+  if (props.collectionName && props.showColumn) {
+    return (
+        <React.Fragment>
+          <SingleImage source={props.source} />
+          <i
+            className={isFavorited === true ? "fas fa-heart" : "far fa-heart"}
+            onClick={toggleClass}
+          ></i>
+        </React.Fragment>
+    )
+  } else {
+    return ( <SingleImage source={props.source} /> )
+  }
+};
 
-        if (this.props.collectionName && this.props.showColumn) {
-            return (
-                <React.Fragment>
-                    <SingleImage source={this.props.source}/>
-                    <i className={ (this.state.favorited === true) ? 'fas fa-heart' : 'far fa-heart' }
-                    onClick={ this.toggleClass }></i>
-                </React.Fragment>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    <SingleImage source={this.props.source}/>
-                </React.Fragment>
-            )
-        }
-    }
-}
-
-export default SelectableImage
+export default SelectableImage;

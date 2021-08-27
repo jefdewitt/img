@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 // Define image schema
 const imageSchema = new mongoose.Schema({
     url: { type: String, required: true, index: true},
-    alt: { type: String },
-    itemNumber: { type: String, required: true }
+    alt: { type: String }
 })
 mongoose.model('images', imageSchema);
 
