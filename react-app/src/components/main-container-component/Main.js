@@ -57,7 +57,7 @@ const Main = () => {
         faveImageCollections={faveImageCollections}
         isLoaded={isLoaded}
         // isFaveCollection={isFaveCollection}
-        createNewClick={createNewClick}
+        // createNewClick={createNewClick}
         collectionName={collectionName}
         loadFaveCollection={loadFaveCollection}
         updateFaves={updateFaves}

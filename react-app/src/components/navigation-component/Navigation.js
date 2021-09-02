@@ -92,7 +92,7 @@ const Navigation = (props) => {
             return props.isLoaded ? (
               <FaveSelectionContainer
                 faveImageCollections={props.faveImageCollections}
-                createNewClick={props.createNewClick}
+                // createNewClick={props.createNewClick}
                 loadFaveCollection={props.loadFaveCollection}
                 updateFaveCollectionsList={props.updateFaveCollectionsList}
               />

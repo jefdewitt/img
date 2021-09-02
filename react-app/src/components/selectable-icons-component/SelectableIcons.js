@@ -48,10 +48,10 @@ const SelectableImage = (props) => {
     return (
         <React.Fragment>
           <SingleImage source={props.source} />
-          <i
+          <span
             className={isFavorited === true ? "fas fa-heart" : "far fa-heart"}
             onClick={toggleClass}
-          ></i>
+          ></span>
         </React.Fragment>
     )
   } else {
