@@ -4,14 +4,40 @@ import Navigation from "../navigation-component/Navigation";
 import UserService from "../../services/UserService";
 import ImageService from "../../services/ImageService";
 import Layout from "../layout-component/Layout";
+import CreateFave from "../create-favorites-collection-component/CreateFaveCollection";
+import ChooseFave from "../choose-favorites-collection-component/ChooseFaveCollection";
 
 const Main = () => {
-  const [collectionName, setCollectionName] = useState("");
-  const [faveImageData, setFaveImageData] = useState({images: [], account: null});
+  const [collectionName, setCollectionName] = useState();
+  const [faveImageData, setFaveImageData] = useState({
+    images: [],
+    account: null,
+  });
   const [isLoaded, setIsLoaded] = useState(false);
   const [faveImageCollections, setFaveImageCollections] = useState([]);
   const [allImageData, setAllImageData] = useState([]);
+  const [createModalIsShown, setCreateModalIsShown] = useState(false);
+  const [chooseModalIsShown, setChooseModalIsShown] = useState(false);
+  const [isFaveCollection, setIsFaveCollection] = useState(false);
+
+  const showCreateModalHandler = () => {
+    setCreateModalIsShown(true);
+  };
+
+  const hideCreateModalHandler = () => {
+    setCreateModalIsShown(false);
+  };
+
+  const showChooseModalHandler = () => {
+    setChooseModalIsShown(true);
+  };
+
+  const hideChooseModalHandler = () => {
+    setChooseModalIsShown(false);
+  };
   // const createNewClick = true;
+
+  // let isFaveCollection = true;
 
   const updateFaves = () => {
     getFaves(collectionName);
@@ -19,7 +45,10 @@ const Main = () => {
 
   const loadFaveCollection = (collection) => {
     setCollectionName(collection);
-    getFaves(collection);
+    setIsFaveCollection(true);
+    if (collection.trim().length > 0) {
+      getFaves(collection);
+    }
   };
 
   const getFaves = (collection) => {
@@ -27,7 +56,7 @@ const Main = () => {
       if (result[0]) {
         setFaveImageData({
           images: result[0].images,
-          account: result[0].account
+          account: result[0].account,
         });
       }
     });
@@ -39,6 +68,13 @@ const Main = () => {
       setIsLoaded(true)
     );
   };
+
+  const displayAllImages = () => {
+    if (collectionName === "") {
+      setCollectionName(null);
+    }
+    setIsFaveCollection(false);
+  }
 
   useEffect(() => {
     // Get all images
@@ -53,18 +89,45 @@ const Main = () => {
   return (
     <div className="main">
       <Navigation
-        allImageData={allImageData}
-        faveImageData={faveImageData}
-        faveImageCollections={faveImageCollections}
-        isLoaded={isLoaded}
+        // allImageData={allImageData}
+        // faveImageData={faveImageData}
+        // faveImageCollections={faveImageCollections}
+        // isLoaded={isLoaded}
         // isFaveCollection={isFaveCollection}
         // createNewClick={createNewClick}
         collectionName={collectionName}
         loadFaveCollection={loadFaveCollection}
         updateFaves={updateFaves}
         updateFaveCollectionsList={updateFaveCollectionsList}
+        showCreateModal={showCreateModalHandler}
+        showChooseModal={showChooseModalHandler}
+        displayAllImages={displayAllImages}
       />
-      {/* <Layout></Layout> */}
+      <Layout
+        allImageData={allImageData}
+        faveImageData={faveImageData}
+        isLoaded={isLoaded}
+        isFaveCollection={isFaveCollection}
+        collectionName={collectionName}
+        updateFaves={updateFaves}
+      />
+      {createModalIsShown && (
+        <CreateFave
+          onClose={hideCreateModalHandler}
+          // createNewClick={true}
+          loadFaveCollection={loadFaveCollection}
+          updateFaveCollectionsList={updateFaveCollectionsList}
+        ></CreateFave>
+      )}
+      {chooseModalIsShown && (
+        <ChooseFave
+          onClose={hideChooseModalHandler}
+          // createNewClick={true}
+          faveImageCollections={faveImageCollections}
+          loadFaveCollection={loadFaveCollection}
+          updateFaveCollectionsList={updateFaveCollectionsList}
+        ></ChooseFave>
+      )}
     </div>
   );
 };

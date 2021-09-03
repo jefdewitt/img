@@ -12,10 +12,10 @@ const Layout = (props) => {
   let [showColumn, setShowColumn] = useState(false);
 
   const displayColumn = () => {
-    setShowColumn(showColumn = !showColumn);
+    setShowColumn((showColumn = !showColumn));
 
     if (props.collectionName && showColumn === false) {
-      // if transitioning from column (on faves page), 
+      // if transitioning from column (on faves page),
       // make call to get updated faves list to display in grid
       props.updateFaves();
     }
@@ -30,12 +30,26 @@ const Layout = (props) => {
     }
   }, [imageRef]);
 
-  return (
-    <React.Fragment>
-      {!props.isLoaded && <div>Loading... {props.isLoaded}</div>}
-      {props.isFaveCollection && props.faveImageData.length === 0 && (
-        <div>No favorite images. Make selections to see them here.</div>
-      )}
+  // return (
+  // <React.Fragment>
+  if (!props.isLoaded) {
+    return (
+      <div>
+        <p>Loading... {props.isLoaded}</p>
+      </div>
+    );
+  }
+  if (
+    props.collectionName === "" ||
+    (props.collectionName && props.faveImageData.images.length === 0)
+  ) {
+    return (
+      <div>
+        <p>No favorite images. Make selections to see them here.</p>
+      </div>
+    );
+  } else {
+    return (
       <div className={showColumn ? "column" : "grid"}>
         <ul>
           {images.map((image, index) => {
@@ -51,7 +65,7 @@ const Layout = (props) => {
                 }}
               >
                 <SelectableIcons
-                  source={{...image, account: props.faveImageData.account}}
+                  source={{ ...image, account: props.faveImageData.account }}
                   faveImageData={props.faveImageData}
                   collectionName={props.collectionName}
                   updateFaves={props.updateFaves}
@@ -62,8 +76,8 @@ const Layout = (props) => {
           })}
         </ul>
       </div>
-    </React.Fragment>
-  );
+    );
+  }
 };
 
 export default Layout;

@@ -1,10 +1,12 @@
 .navigation {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
-h1 {
+.navigation h1 {
   flex: 1;
+  margin: 0;
 }
 
 .navigation ul {
@@ -25,7 +27,7 @@ h1 {
   text-decoration: none;
 }
 
-button {
+/* button {
   display: none;
   border: #666 solid 1px;
 }
@@ -34,7 +36,7 @@ button span {
   color: #000;
   display: inline-block;
   position: relative;
-}
+} */
 
 /* @media screen and (min-width: 720px) {
     .navigation ul {
@@ -50,6 +52,10 @@ button span {
     background: white;
     z-index: 2;
     width: 100%;
+  }
+
+  .navigation h1 {
+    font-size: 1.5em;
   }
 
   

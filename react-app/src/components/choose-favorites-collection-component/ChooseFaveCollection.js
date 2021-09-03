@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import Modal from "../UI/Modal/Modal";
+// import { withRouter } from "react-router-dom";
 
 const ChooseFave = (props) => {
   const [nameValue, setNameValue] = useState("");
@@ -14,17 +15,19 @@ const ChooseFave = (props) => {
     event.preventDefault();
     if (nameValue !== "" && nameValue !== "Select a folder") {
       props.loadFaveCollection(nameValue);
-      goToFaves();
+      props.onClose();
+      // goToFaves();
     }
   };
 
   // If account selection is successful, go to favorites
-  const goToFaves = () => {
-    props.history.push("/img/favorites");
-  };
+  // const goToFaves = () => {
+  //   props.history.push("/img/favorites");
+  // };
 
   // if (props.signInClick) {
-    return (
+  return (
+    <Modal onClose={props.onClose}>
       <div className="choose-fave form">
         <h3>Choose a favorites collection</h3>
         <form onSubmit={handleSubmit}>
@@ -40,7 +43,8 @@ const ChooseFave = (props) => {
           <input type="submit" value="Submit" />
         </form>
       </div>
-    );
+    </Modal>
+  );
   // } else {
   //   return (
   //     <input
@@ -54,4 +58,4 @@ const ChooseFave = (props) => {
   // }
 };
 
-export default withRouter(ChooseFave);
+export default ChooseFave;
