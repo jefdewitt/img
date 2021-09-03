@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navigation from "../navigation-component/Navigation";
 import UserService from "../../services/UserService";
 import ImageService from "../../services/ImageService";
+import Layout from "../layout-component/Layout";
 
 const Main = () => {
   const [collectionName, setCollectionName] = useState("");
@@ -10,7 +11,7 @@ const Main = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [faveImageCollections, setFaveImageCollections] = useState([]);
   const [allImageData, setAllImageData] = useState([]);
-  const createNewClick = true;
+  // const createNewClick = true;
 
   const updateFaves = () => {
     getFaves(collectionName);
@@ -63,6 +64,7 @@ const Main = () => {
         updateFaves={updateFaves}
         updateFaveCollectionsList={updateFaveCollectionsList}
       />
+      {/* <Layout></Layout> */}
     </div>
   );
 };

@@ -1,53 +1,68 @@
 .navigation {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 h1 {
-    flex: 1;
+  flex: 1;
 }
 
 .navigation ul {
-    padding: 20px 0 0 0;
-    position: relative;
-    z-index: 0;
-    flex: 4;
+  padding: 20px 0 0 0;
+  position: relative;
+  z-index: 0;
+  flex: 4;
+  display: flex;
+  justify-content: space-around;
 }
 
 .navigation li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .navigation a {
-    color: #444;
-    text-decoration: none;
+  color: #444;
+  text-decoration: none;
 }
 
 button {
-    display: none;
-    border: #666 solid 1px;
+  display: none;
+  border: #666 solid 1px;
 }
 
 button span {
-    color: #000;
-    display: inline-block;
-    position: relative;
+  color: #000;
+  display: inline-block;
+  position: relative;
 }
 
-@media screen and (min-width: 720px) {
+/* @media screen and (min-width: 720px) {
     .navigation ul {
         display: flex;
         justify-content: space-around;
     }
-}
+} */
 
 @media screen and (max-width: 720px) {
+  .navigation {
+    position: fixed;
+    bottom: 0;
+    background: white;
+    z-index: 2;
+    width: 100%;
+  }
 
-    h1 {
+  
+
+  /* .navigation ul {
+    padding: 0;
+  } */
+
+  /* h1 {
         padding: 10px 0 0 10px;
-    }
+    } */
 
-    .navigation ul {
+  /* .navigation ul {
         margin-top: 50px;
         padding: 0;
     }
@@ -80,13 +95,13 @@ button span {
         transform: rotate(90deg) scale(1.5);
         border: none;
         background: transparent;
-    }
+    } */
 
-    /**
+  /**
      * Mobile button transform logic
      **/
 
-    .navigation ul.hide + button>span:first-child {
+  /* .navigation ul.hide + button>span:first-child {
         transform: rotate(0deg);
         left: 0;
         transition: all .25s ease-in;
@@ -124,5 +139,5 @@ button span {
         position: relative;
         right: 6px;
         transition: all .25s ease-in;
-    }
+    } */
 }

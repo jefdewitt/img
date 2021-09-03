@@ -23,7 +23,7 @@ const ChooseFave = (props) => {
     props.history.push("/img/favorites");
   };
 
-  if (props.signInClick) {
+  // if (props.signInClick) {
     return (
       <div className="choose-fave form">
         <h3>Choose a favorites collection</h3>
@@ -41,17 +41,17 @@ const ChooseFave = (props) => {
         </form>
       </div>
     );
-  } else {
-    return (
-      <input
-        type="submit"
-        value="Choose One"
-        onClick={() => {
-          props.displayCreateCollectionComp(false);
-        }}
-      ></input>
-    );
-  }
+  // } else {
+  //   return (
+  //     <input
+  //       type="submit"
+  //       value="Choose One"
+  //       onClick={() => {
+  //         props.displayCreateCollectionComp(false);
+  //       }}
+  //     ></input>
+  //   );
+  // }
 };
 
 export default withRouter(ChooseFave);

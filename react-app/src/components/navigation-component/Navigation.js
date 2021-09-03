@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,11 +8,15 @@ import {
 } from "react-router-dom";
 
 import Layout from "../layout-component/Layout";
-import FaveSelectionContainer from "../fave-selection-container-component/FaveSelectionContainer";
+// import FaveSelectionContainer from "../fave-selection-container-component/FaveSelectionContainer";
+import CreateFave from "../create-favorites-collection-component/CreateFaveCollection";
+import ChooseFave from "../choose-favorites-collection-component/ChooseFaveCollection";
 import "./Navigation.css";
 
 const Navigation = (props) => {
-  const [showMenu, setShowMenu] = useState(false);
+  // const [showMenu, setShowMenu] = useState(false);
+  const [createModalIsShown, setCreateModalIsShown] = useState(false);
+  const [chooseModalIsShown, setChooseModalIsShown] = useState(false);
 
   const allMemes = "All Memes";
   const startCollection = "Start a Collection";
@@ -21,20 +25,36 @@ const Navigation = (props) => {
 
   let isFaveCollection = true;
 
-  const displayMenu = () => {
-    setShowMenu(!showMenu);
+  // const displayMenu = () => {
+  //   setShowMenu(!showMenu);
+  // };
+
+  const showCreateModalHandler = () => {
+    setCreateModalIsShown(true);
+  };
+
+  const hideCreateModalHandler = () => {
+    setCreateModalIsShown(false);
+  };
+
+  const showChooseModalHandler = () => {
+    setChooseModalIsShown(true);
+  };
+
+  const hideChooseModalHandler = () => {
+    setChooseModalIsShown(false);
   };
 
   return (
     <Router>
       <div
         className="navigation"
-        onClick={() => {
-          displayMenu();
-        }}
+        // onClick={() => {
+        //   displayMenu();
+        // }}
       >
         <h1>img</h1>
-        <ul className={showMenu ? "show" : "hide"}>
+        <ul>
           <li>
             <Link
               to="/img"
@@ -46,10 +66,24 @@ const Navigation = (props) => {
             </Link>
           </li>
           <li>
-            <Link to="/img/create-faves">{startCollection}</Link>
+            <Link
+              to="/img/create-faves"
+              onClick={() => {
+                showCreateModalHandler();
+              }}
+            >
+              {startCollection}
+            </Link>
           </li>
           <li>
-            <Link to="/img/view-faves">{chooseCollection}</Link>
+            <Link
+              to="/img/view-faves"
+              onClick={() => {
+                showChooseModalHandler();
+              }}
+            >
+              {chooseCollection}
+            </Link>
           </li>
           {props.collectionName !== "" && (
             <li>
@@ -64,11 +98,11 @@ const Navigation = (props) => {
             </li>
           )}
         </ul>
-        <button>
+        {/* <button>
           <span>|</span>
           <span>|</span>
           <span>|</span>
-        </button>
+        </button> */}
       </div>
 
       <Switch>
@@ -89,26 +123,39 @@ const Navigation = (props) => {
         <Route
           path="/img/create-faves"
           render={() => {
-            return props.isLoaded ? (
-              <FaveSelectionContainer
-                faveImageCollections={props.faveImageCollections}
-                // createNewClick={props.createNewClick}
-                loadFaveCollection={props.loadFaveCollection}
-                updateFaveCollectionsList={props.updateFaveCollectionsList}
-              />
-            ) : (
-              <Redirect to="/img" />
+            return (
+              // <FaveSelectionContainer
+              //   faveImageCollections={props.faveImageCollections}
+              //   // createNewClick={props.createNewClick}
+              //   loadFaveCollection={props.loadFaveCollection}
+              //   updateFaveCollectionsList={props.updateFaveCollectionsList}
+              // />
+              <React.Fragment>
+                {createModalIsShown && (
+                  <CreateFave
+                    onClose={hideCreateModalHandler}
+                    // createNewClick={true}
+                    loadFaveCollection={props.loadFaveCollection}
+                    updateFaveCollectionsList={props.updateFaveCollectionsList}
+                  ></CreateFave>
+                )}
+              </React.Fragment>
             );
           }}
         />
         <Route
           path="/img/view-faves"
           component={() => (
-            <FaveSelectionContainer
-              faveImageCollections={props.faveImageCollections}
-              loadFaveCollection={props.loadFaveCollection}
-              updateFaveCollectionsList={props.updateFaveCollectionsList}
-            />
+            <React.Fragment>
+              {chooseModalIsShown && (
+                <ChooseFave
+                  onClose={hideChooseModalHandler}
+                  // createNewClick={true}
+                  loadFaveCollection={props.loadFaveCollection}
+                  updateFaveCollectionsList={props.updateFaveCollectionsList}
+                ></ChooseFave>
+              )}
+            </React.Fragment>
           )}
         />
         <Route

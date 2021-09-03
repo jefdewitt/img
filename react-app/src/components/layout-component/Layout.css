@@ -39,3 +39,11 @@ img {
   position: relative;
   list-style: none;
 }
+
+@media screen and (max-width: 720px) {
+  .column, .grid {
+    padding: 5px;
+    overflow: scroll;
+    padding-bottom: 100px;
+  }
+}

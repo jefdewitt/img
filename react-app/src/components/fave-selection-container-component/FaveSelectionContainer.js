@@ -32,7 +32,7 @@ const FaveSelectionContainer = (props) => {
 
   if (showCreateCollectionComp) {
     return (
-      <React.Fragment>
+      // <React.Fragment>
         <div className="fave-selection-container">
           <ChooseFave
             signInClick={false}
@@ -45,11 +45,11 @@ const FaveSelectionContainer = (props) => {
             updateFaveCollectionsList={updateFaveCollectionsList}
           ></CreateFave>
         </div>
-      </React.Fragment>
+      // </React.Fragment>
     );
   } else {
     return (
-      <React.Fragment>
+      // <React.Fragment>
         <div className="fave-selection-container">
           <CreateFave
             createNewClick={false}
@@ -61,7 +61,7 @@ const FaveSelectionContainer = (props) => {
             loadFaveCollection={loadFaveCollection}
           ></ChooseFave>
         </div>
-      </React.Fragment>
+      // </React.Fragment>
     );
   }
 };
