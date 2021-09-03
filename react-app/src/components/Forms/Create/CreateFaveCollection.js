@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
-// import { withRouter } from "react-router-dom";
-import Modal from "../UI/Modal/Modal";
-import UserService from "../../services/UserService";
+import React, { useState, useEffect } from "react";
+import Modal from "../../UI/Modal/Modal";
+import UserService from "../../../services/UserService";
 
 const CreateFave = (props) => {
   const [nameValue, setNameValue] = useState("");
@@ -20,26 +19,18 @@ const CreateFave = (props) => {
     });
   };
 
-  // If new account creation is successful, go back home
-  const goToFaves = useCallback(() => {
-    props.history.push("/img");
-  }, [props]);
-
   // Called after state change (see the handleSubmit setState call above)
   useEffect(() => {
     try {
       if (submissionSuccess) {
         props.loadFaveCollection(nameValue);
         props.updateFaveCollectionsList();
-        goToFaves();
       }
     } catch (e) {
       console.log(e);
     }
-  }, [submissionSuccess, nameValue, props, goToFaves]);
-  // }, []);
+  }, [submissionSuccess, nameValue, props]);
 
-  // if ( props.createNewClick ) {
   return (
     <Modal onClose={props.onClose}>
       <div className="create-fave form">
@@ -54,11 +45,6 @@ const CreateFave = (props) => {
       </div>
     </Modal>
   );
-  // } else {
-  //     return (
-  //         <input type="submit" value="Create New" onClick={() => {props.displayCreateCollectionComp(true)}}></input>
-  //     )
-  // }
 };
 
 export default CreateFave;

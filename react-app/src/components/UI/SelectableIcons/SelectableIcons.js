@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import SingleImage from "../single-image-component/SingleImage";
+import SingleImage from "../SingleImage/SingleImage";
 import "./SelectableIcons.css";
-import ImageService from "../../services/ImageService";
+import ImageService from "../../../services/ImageService";
 
 const SelectableImage = (props) => {
   const [isFavorited, setIsFavorited] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./Layout.css";
-import SelectableIcons from "../selectable-icons-component/SelectableIcons";
+import SelectableIcons from "../UI/SelectableIcons/SelectableIcons";
 
 const Layout = (props) => {
   let images = props.isFaveCollection
@@ -30,8 +30,6 @@ const Layout = (props) => {
     }
   }, [imageRef]);
 
-  // return (
-  // <React.Fragment>
   if (!props.isLoaded) {
     return (
       <div>
@@ -41,16 +39,20 @@ const Layout = (props) => {
   }
   if (
     props.collectionName === "" ||
-    (props.collectionName && props.faveImageData.images.length === 0)
+    (props.isFaveCollection &&
+      props.collectionName &&
+      props.faveImageData.images.length === 0)
   ) {
     return (
       <div>
+        {props.collectionName && <h2>Collection: {props.collectionName}</h2>}
         <p>No favorite images. Make selections to see them here.</p>
       </div>
     );
   } else {
     return (
       <div className={showColumn ? "column" : "grid"}>
+        {props.collectionName && <h2>Collection: {props.collectionName}</h2>}
         <ul>
           {images.map((image, index) => {
             const selectedImageRef = React.createRef();

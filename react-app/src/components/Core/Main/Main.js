@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import Navigation from "../navigation-component/Navigation";
-import UserService from "../../services/UserService";
-import ImageService from "../../services/ImageService";
-import Layout from "../layout-component/Layout";
-import CreateFave from "../create-favorites-collection-component/CreateFaveCollection";
-import ChooseFave from "../choose-favorites-collection-component/ChooseFaveCollection";
+import Navigation from "../Navigation/Navigation";
+import UserService from "../../../services/UserService";
+import ImageService from "../../../services/ImageService";
+import Layout from "../Gallery";
+import CreateFave from "../../Forms/Create/CreateFaveCollection";
+import ChooseFave from "../../Forms/Choose/ChooseFaveCollection";
 
 const Main = () => {
   const [collectionName, setCollectionName] = useState();
@@ -35,9 +35,6 @@ const Main = () => {
   const hideChooseModalHandler = () => {
     setChooseModalIsShown(false);
   };
-  // const createNewClick = true;
-
-  // let isFaveCollection = true;
 
   const updateFaves = () => {
     getFaves(collectionName);
@@ -89,12 +86,6 @@ const Main = () => {
   return (
     <div className="main">
       <Navigation
-        // allImageData={allImageData}
-        // faveImageData={faveImageData}
-        // faveImageCollections={faveImageCollections}
-        // isLoaded={isLoaded}
-        // isFaveCollection={isFaveCollection}
-        // createNewClick={createNewClick}
         collectionName={collectionName}
         loadFaveCollection={loadFaveCollection}
         updateFaves={updateFaves}
@@ -114,7 +105,6 @@ const Main = () => {
       {createModalIsShown && (
         <CreateFave
           onClose={hideCreateModalHandler}
-          // createNewClick={true}
           loadFaveCollection={loadFaveCollection}
           updateFaveCollectionsList={updateFaveCollectionsList}
         ></CreateFave>
@@ -122,7 +112,6 @@ const Main = () => {
       {chooseModalIsShown && (
         <ChooseFave
           onClose={hideChooseModalHandler}
-          // createNewClick={true}
           faveImageCollections={faveImageCollections}
           loadFaveCollection={loadFaveCollection}
           updateFaveCollectionsList={updateFaveCollectionsList}
