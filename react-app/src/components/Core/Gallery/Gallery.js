@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import "./Layout.css";
-import SelectableIcons from "../UI/SelectableIcons/SelectableIcons";
+import classes from "./Gallery.module.css";
+import SelectableIcons from "../../UI/SelectableIcons/SelectableIcons";
 
 const Layout = (props) => {
   let images = props.isFaveCollection
@@ -51,7 +51,7 @@ const Layout = (props) => {
     );
   } else {
     return (
-      <div className={showColumn ? "column" : "grid"}>
+      <div className={showColumn ? classes.column : classes.grid}>
         {props.collectionName && <h2>Collection: {props.collectionName}</h2>}
         <ul>
           {images.map((image, index) => {

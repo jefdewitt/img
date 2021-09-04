@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navigation from "../Navigation/Navigation";
 import UserService from "../../../services/UserService";
 import ImageService from "../../../services/ImageService";
-import Layout from "../Gallery";
+import Layout from "../Gallery/Gallery";
 import CreateFave from "../../Forms/Create/CreateFaveCollection";
 import ChooseFave from "../../Forms/Choose/ChooseFaveCollection";
 
@@ -71,7 +71,7 @@ const Main = () => {
       setCollectionName(null);
     }
     setIsFaveCollection(false);
-  }
+  };
 
   useEffect(() => {
     // Get all images
@@ -84,7 +84,7 @@ const Main = () => {
   }, []);
 
   return (
-    <div className="main">
+    <React.Fragment>
       <Navigation
         collectionName={collectionName}
         loadFaveCollection={loadFaveCollection}
@@ -117,7 +117,7 @@ const Main = () => {
           updateFaveCollectionsList={updateFaveCollectionsList}
         ></ChooseFave>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

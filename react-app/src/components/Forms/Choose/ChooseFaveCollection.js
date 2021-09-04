@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../UI/Modal/Modal";
+import classes from "../Create/Forms.module.css";
 
 const ChooseFave = (props) => {
   const [nameValue, setNameValue] = useState("");
@@ -20,10 +21,11 @@ const ChooseFave = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      <div className="choose-fave form">
+      <div className={classes.form}>
         <h3>Choose a favorites collection</h3>
         <form onSubmit={handleSubmit}>
-          <select onChange={handleChange}>
+          <label htmlFor="collection">Select a collection below:&nbsp;</label>
+          <select id="collection" onChange={handleChange}>
             {props.faveImageCollections.map((collection, key) => {
               return (
                 <option key={key} value={collection.name}>
@@ -32,7 +34,9 @@ const ChooseFave = (props) => {
               );
             })}
           </select>
-          <input type="submit" value="Submit" />
+          <button className={classes.button} type="submit">
+            Submit
+          </button>
         </form>
       </div>
     </Modal>

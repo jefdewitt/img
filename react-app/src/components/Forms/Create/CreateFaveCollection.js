@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../UI/Modal/Modal";
 import UserService from "../../../services/UserService";
+import classes from "./Forms.module.css";
 
 const CreateFave = (props) => {
   const [nameValue, setNameValue] = useState("");
@@ -33,14 +34,16 @@ const CreateFave = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      <div className="create-fave form">
+      <div className={classes.form}>
         <h3>Create a new favorites folder</h3>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">
-            Add a name:
-            <input type="text" name="name" onChange={handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
+          <div>
+            <label htmlFor="name">Add a name:&nbsp;</label>
+            <input type="text" id="name" onChange={handleChange} />
+          </div>
+          <button className={classes.button} type="submit">
+            Submit
+          </button>
         </form>
       </div>
     </Modal>
