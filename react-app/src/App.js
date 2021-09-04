@@ -4,7 +4,7 @@ import './App.css';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-import Main from './components/main-container-component/Main';
+import Main from './components/Core/Main/Main';
 
 function App() {
   return (
