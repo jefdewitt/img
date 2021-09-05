@@ -1,36 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "../../UI/Modal/Modal";
 import UserService from "../../../services/UserService";
 import classes from "./Forms.module.css";
 
 const CreateFave = (props) => {
-  const [nameValue, setNameValue] = useState("");
-  const [submissionSuccess, setSubmissionSuccess] = useState("");
+  const [nameValue, setNameValue] = useState(null);
 
   const handleChange = (event) => {
-    if (event.target.name === "name") {
+    if (event.target.id === "name") {
       setNameValue(event.target.value);
     }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    UserService.addCollection(nameValue).then((result) => {
-      setSubmissionSuccess(Boolean(result));
-    });
-  };
-
-  // Called after state change (see the handleSubmit setState call above)
-  useEffect(() => {
-    try {
-      if (submissionSuccess) {
+    UserService.addCollection(event.target[0].value).then((result) => {
+      if (Boolean(result)) {
         props.loadFaveCollection(nameValue);
         props.updateFaveCollectionsList();
       }
-    } catch (e) {
-      console.log(e);
-    }
-  }, [submissionSuccess, nameValue, props]);
+    });
+    props.onClose();
+  };
 
   return (
     <Modal onClose={props.onClose}>

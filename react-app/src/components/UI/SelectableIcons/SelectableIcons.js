@@ -39,7 +39,7 @@ const SelectableImage = (props) => {
           .map(function (image) {
             return image._id;
           })
-          .indexOf(props.source._id) !== -1;
+          .includes(props.source._id);
       setIsFavorited(faveImageCheck);
     }
   }, [props.faveImageData, props.source._id]);

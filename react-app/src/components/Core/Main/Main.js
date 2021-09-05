@@ -16,24 +16,25 @@ const Main = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [faveImageCollections, setFaveImageCollections] = useState([]);
   const [allImageData, setAllImageData] = useState([]);
-  const [createGalleryModalIsShown, setCreateGalleryModalIsShown] = useState(false);
-  const [chooseGalleryModalIsShown, setChooseGalleryModalIsShown] = useState(false);
+  const [createModalIsShown, setCreateModalIsShown] = useState(false);
+  const [chooseModalIsShown, setChooseModalIsShown] = useState(false);
   const [isFaveCollection, setIsFaveCollection] = useState(false);
+  const [allNavSelection, setAllNavSelection] = useState(true);
 
-  const showCreateGalleryModalHandler = () => {
-    setCreateGalleryModalIsShown(true);
+  const showCreateModalHandler = () => {
+    setCreateModalIsShown(true);
   };
 
-  const hideCreateGalleryModalHandler = () => {
-    setCreateGalleryModalIsShown(false);
+  const hideCreateModalHandler = () => {
+    setCreateModalIsShown(false);
   };
 
-  const showChooseGalleryModalHandler = () => {
-    setChooseGalleryModalIsShown(true);
+  const showChooseModalHandler = () => {
+    setChooseModalIsShown(true);
   };
 
-  const hideChooseGalleryModalHandler = () => {
-    setChooseGalleryModalIsShown(false);
+  const hideChooseModalHandler = () => {
+    setChooseModalIsShown(false);
   };
 
   const updateFaves = () => {
@@ -43,7 +44,8 @@ const Main = () => {
   const loadFaveCollection = (collection) => {
     setCollectionName(collection);
     setIsFaveCollection(true);
-    if (collection.trim().length > 0) {
+    setAllNavSelection(false);
+    if (collection !== null || collection !== null) {
       getFaves(collection);
     }
   };
@@ -67,10 +69,11 @@ const Main = () => {
   };
 
   const displayAllImages = () => {
-    if (collectionName === "") {
+    if (collectionName === null) {
       setCollectionName(null);
     }
     setIsFaveCollection(false);
+    setAllNavSelection(true);
   };
 
   useEffect(() => {
@@ -90,9 +93,10 @@ const Main = () => {
         loadFaveCollection={loadFaveCollection}
         updateFaves={updateFaves}
         updateFaveCollectionsList={updateFaveCollectionsList}
-        showCreateModal={showCreateGalleryModalHandler}
-        showChooseModal={showChooseGalleryModalHandler}
+        showCreateModal={showCreateModalHandler}
+        showChooseModal={showChooseModalHandler}
         displayAllImages={displayAllImages}
+        allNavSelection={allNavSelection}
       />
       <Layout
         allImageData={allImageData}
@@ -102,16 +106,16 @@ const Main = () => {
         collectionName={collectionName}
         updateFaves={updateFaves}
       />
-      {createGalleryModalIsShown && (
+      {createModalIsShown && (
         <CreateFave
-          onClose={hideCreateGalleryModalHandler}
+          onClose={hideCreateModalHandler}
           loadFaveCollection={loadFaveCollection}
           updateFaveCollectionsList={updateFaveCollectionsList}
         ></CreateFave>
       )}
-      {chooseGalleryModalIsShown && (
+      {chooseModalIsShown && (
         <ChooseFave
-          onClose={hideChooseGalleryModalHandler}
+          onClose={hideChooseModalHandler}
           faveImageCollections={faveImageCollections}
           loadFaveCollection={loadFaveCollection}
           updateFaveCollectionsList={updateFaveCollectionsList}

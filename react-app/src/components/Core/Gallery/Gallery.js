@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import classes from "./Gallery.module.css";
 import SelectableIcons from "../../UI/SelectableIcons/SelectableIcons";
 
-const Layout = (props) => {
+const Gallery = (props) => {
   let images = props.isFaveCollection
     ? props.faveImageData.images
     : props.allImageData;
@@ -38,7 +38,7 @@ const Layout = (props) => {
     );
   }
   if (
-    props.collectionName === "" ||
+    (props.isFaveCollection && props.collectionName === null) ||
     (props.isFaveCollection &&
       props.collectionName &&
       props.faveImageData.images.length === 0)
@@ -46,6 +46,7 @@ const Layout = (props) => {
     return (
       <div>
         {props.collectionName && <h2>Collection: {props.collectionName}</h2>}
+        <br />
         <p>No favorite images. Make selections to see them here.</p>
       </div>
     );
@@ -82,4 +83,4 @@ const Layout = (props) => {
   }
 };
 
-export default Layout;
+export default Gallery;

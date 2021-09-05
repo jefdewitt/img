@@ -1,8 +1,10 @@
 import React from "react";
 
 const CollectionsContext = React.createContext({
-  selectedCollectionName: "",
+  selectedCollectionName: null,
   collections: [],
+  getCollections: () => {},
+  setSelectedCollection: (name) => {},
   addCollection: (name) => {},
   removeCollection: (name) => {},
 });

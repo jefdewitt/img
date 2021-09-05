@@ -3,7 +3,7 @@ import Modal from "../../UI/Modal/Modal";
 import classes from "../Create/Forms.module.css";
 
 const ChooseFave = (props) => {
-  const [nameValue, setNameValue] = useState("");
+  const [nameValue, setNameValue] = useState(null);
 
   const handleChange = (event) => {
     if (event.target.name !== "Select a folder") {
@@ -13,7 +13,7 @@ const ChooseFave = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (nameValue !== "" && nameValue !== "Select a folder") {
+    if (nameValue !== null && nameValue !== "Select a folder") {
       props.loadFaveCollection(nameValue);
       props.onClose();
     }
